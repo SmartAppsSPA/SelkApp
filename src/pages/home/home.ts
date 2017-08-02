@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 /**
  * Generated class for the HomePage page.
  *
@@ -16,7 +17,17 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class HomePage {
 
-  constructor(private afAuth:AngularFireAuth, private toast:ToastController, public navCtrl: NavController, public navParams: NavParams) {
+  arrCat = [];
+
+  constructor(private afAuth:AngularFireAuth, private toast:ToastController,
+              private fdb: AngularFireDatabase,
+              public navCtrl: NavController, public navParams: NavParams) {
+
+                this.fdb.list("/categories/").subscribe(_data => {
+                  this.arrCat = _data;
+
+                  console.log(this.arrCat);
+                });
   }
 
   ionViewDidLoad() {
