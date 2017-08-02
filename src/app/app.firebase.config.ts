@@ -1,8 +1,8 @@
 export const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyDBcXCY7k6wLEO526167NR59W3jKyFVKac",
-    authDomain: "selkapp-6180e.firebaseapp.com",
-    databaseURL: "https://selkapp-6180e.firebaseio.com",
-    projectId: "selkapp-6180e",
-    storageBucket: "selkapp-6180e.appspot.com",
-    messagingSenderId: "991526148135"
+  apiKey: "AIzaSyCL8IYoQfAmdV20RA2pMg3HgWbX81PGwR8",
+  authDomain: "selkapp-ea94e.firebaseapp.com",
+  databaseURL: "https://selkapp-ea94e.firebaseio.com",
+  projectId: "selkapp-ea94e",
+  storageBucket: "selkapp-ea94e.appspot.com",
+  messagingSenderId: "87671326090"
   };

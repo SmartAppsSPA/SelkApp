@@ -12,6 +12,7 @@ import { FIREBASE_CONFIG } from './app.firebase.config';
 
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+import { HomePage } from '../pages/home/home';
 
 
 @NgModule({
