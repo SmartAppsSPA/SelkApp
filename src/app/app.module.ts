@@ -19,7 +19,8 @@ import { HomePage } from '../pages/home/home';
   declarations: [
     MyApp,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,8 @@ import { HomePage } from '../pages/home/home';
   entryComponents: [
     MyApp,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    HomePage
   ],
   providers: [
     StatusBar,

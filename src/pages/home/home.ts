@@ -21,16 +21,16 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.afAuth.authState.subscribe(data => {
-      if (data && data.email && data.uid){
+      if (data.email && data.uid){
         this.toast.create({
-          message: "Bienvenido a Sel'k App, ${data.email}",
-          duration: 3000
+          message: `Bienvenido a Sel'k App, ${data.email}`,
+          duration: 5000
         }).present();
       }
       else{
         this.toast.create({
-          message: "No se pudo obtener información de autenticación.",
-          duration: 3000
+          message: `No se pudo obtener información de autenticación.`,
+          duration: 5000
         }).present();
       }
     });
