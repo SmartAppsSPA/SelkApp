@@ -1,3 +1,46 @@
 page-login {
+  .background{
+    background-image: url('../assets/bg.jpg') !important;
+		background-size: cover !important;
+  }
+  .input-cover{
+		position: relative;
+	}
+  .scroll-content{
+		align-content: center;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+	}
+	ion-card.card{
+    margin-top: 30%;
+		box-shadow: none;
+		background: rgba(0,0,0,0.5);
+		border-radius: 5px;
+	}
+	a,p,
+	ion-card-header.card-header{
+		color:#fff;
+	}
+  .list > .item-block:first-child{
+		border: medium none;
+	}
+	.item{
+		margin-bottom: 10px;
+		background: rgba(255,255,255,0.25);
+		border: medium none;
+
+		.label,{
+			color:#fff;
+			font-family: Helvetica;
+		}
+	}
+	.icon{
+		padding-right: 10px;
+	}
+	.bottom{
+		position: fixed;
+		bottom: 0;
+	}
 
 }
