@@ -3,12 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
-/**
- * Generated class for the HomePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
+import { MainPage } from '../main/main';
 
 @IonicPage()
 @Component({
@@ -45,6 +41,10 @@ export class HomePage {
         }).present();
       }
     });
+  }
+
+  catClick(){
+    this.navCtrl.push(MainPage);
   }
 
 

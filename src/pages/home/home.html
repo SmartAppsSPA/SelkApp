@@ -8,5 +8,5 @@
 
 
 <ion-content padding>
-  <button ion-button color="light" block *ngFor="let category of arrCat; let i = index">{{category.es}}</button>
+  <button ion-button color="light" block *ngFor="let category of arrCat; let i = index" (click)="catClick()">{{category.es}}</button>
 </ion-content>

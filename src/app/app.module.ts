@@ -15,6 +15,7 @@ import { FIREBASE_CONFIG } from './app.firebase.config';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { HomePage } from '../pages/home/home';
+import { MainPage } from '../pages/main/main';
 
 
 @NgModule({
@@ -22,11 +23,12 @@ import { HomePage } from '../pages/home/home';
     MyApp,
     LoginPage,
     RegisterPage,
-    HomePage
+    HomePage,
+    MainPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {backButtonText: 'Atras'}),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
     AngularFireDatabaseModule
@@ -36,7 +38,8 @@ import { HomePage } from '../pages/home/home';
     MyApp,
     LoginPage,
     RegisterPage,
-    HomePage
+    HomePage,
+    MainPage
   ],
   providers: [
     StatusBar,
