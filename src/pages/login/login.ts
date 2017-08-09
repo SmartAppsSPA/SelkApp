@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-import { User } from '../../models/user';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { FormBuilder, Validators } from '@angular/forms';
+//Servicio de autenticación de credenciales
+import { AuthProvider } from '../../providers/auth/auth';
+//Validador de correo electronico, para que el usuario no escriba caracteres extraños
+import { EmailValidator } from '../../validators/email';
+//Paginas de la aplicación
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
 
-import { AngularFireAuth} from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -13,28 +16,46 @@ import { AngularFireAuth} from 'angularfire2/auth';
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  public loginForm;
+  loading:any;
 
-  user = {} as User;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public formBuilder: FormBuilder, public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController, public authProv:AuthProvider){
 
-  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
+                this.loginForm = formBuilder.group({
+                  email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+                  password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+                });
   }
 
+  loginUser(): void {
+      if (!this.loginForm.valid) {
+          console.log(this.loginForm.value);
+      } else {
+          this.authProv.loginUser(this.loginForm.value.email, this.loginForm.value.password).then(authData => {
+              this.loading.dismiss().then(() => {
+                  this.navCtrl.setRoot(HomePage);
+              });
+          }, error => {
+              this.loading.dismiss().then(() => {
+                  let alert = this.alertCtrl.create({
+                      title: 'Algo no anda bien!',
+                      subTitle: 'Los datos ingresados no se encuentran en nuestros registros. ¿Tal vez escribio algo mal?',
+                      buttons: ["OK"]
+                  });
+                  alert.present();
+              });
+          });
 
-  async login(user:User){
-    try{
-      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password );
-      console.log(result);
-      if (result){
-        this.navCtrl.setRoot(HomePage);
+          this.loading = this.loadingCtrl.create();
+          this.loading.present();
       }
-    }
-    catch(e){
-      console.error(e);
-    }
+  }
+  loginUserFB(){
 
   }
-
-  register(){
+  register(): void {
     this.navCtrl.push(RegisterPage);
   }
 

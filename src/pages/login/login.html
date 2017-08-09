@@ -5,20 +5,33 @@
     </ion-card-header>
     <ion-card-content >
       <ion-list>
+        <form [formGroup]="loginForm" novalidate>
 
-          <ion-item>
-            <ion-label floating>Correo Electrónico</ion-label>
-             <ion-input type="email" name="email" [(ngModel)]="user.email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label floating>Contraseña</ion-label>
-             <ion-input type="password" name="password" [(ngModel)]="user.password"></ion-input>
-          </ion-item>
+            <ion-item>
+              <ion-label floating>Correo Electrónico</ion-label>
+               <ion-input #email type="email" formControlName="email"
+               [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-input>
+            </ion-item>
+            <ion-item class="error-message"
+              *ngIf="!loginForm.controls.email.valid  && loginForm.controls.email.dirty">
+              <p>Por favor ingrese un email valido.</p>
+            </ion-item>
 
-          <button ion-button block outline color="light" ng-click="" (click)="login(user)">ENTRAR</button>
-          <button ion-button block color="facebook">
-						<ion-icon name="logo-facebook"></ion-icon>Inicia Sesión con Facebook
-					</button>
+            <ion-item>
+              <ion-label floating>Contraseña</ion-label>
+               <ion-input #password formControlName="password" type="password"
+               [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
+            </ion-item>
+            <ion-item class="error-message"
+              *ngIf="!loginForm.controls.password.valid  && loginForm.controls.password.dirty">
+              <p>Su contraseña necesita más de 6 caracteres.</p>
+            </ion-item>
+
+            <button ion-button block outline color="light" (click)="loginUser()">ENTRAR</button>
+            <button ion-button block color="facebook" (click)="loginUserFB()">
+  						<ion-icon name="logo-facebook"></ion-icon>Inicia Sesión con Facebook
+  					</button>
+        </form>
 
         </ion-list>
     </ion-card-content>

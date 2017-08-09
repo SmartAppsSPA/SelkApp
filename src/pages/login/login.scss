@@ -12,6 +12,9 @@ page-login {
 		justify-content: center;
 		text-align: center;
 	}
+  .item-md p{
+    color: white !important;
+  }
 	ion-card.card{
     margin-top: 30%;
 		box-shadow: none;
@@ -39,7 +42,6 @@ page-login {
 		padding-right: 10px;
 	}
 	.bottom{
-		position: fixed;
 		bottom: 0;
 	}
 
