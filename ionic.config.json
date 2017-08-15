@@ -1,5 +1,8 @@
 {
   "name": "SelkApp",
   "app_id": "f8908353",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

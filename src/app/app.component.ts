@@ -11,6 +11,7 @@ import { MainPage } from '../pages/main/main';
 import { FIREBASE_CONFIG } from './app.firebase.config';
 import firebase  from 'firebase';
 
+
 @Component({
   templateUrl: 'app.html'
 })

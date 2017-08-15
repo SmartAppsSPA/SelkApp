@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Facebook } from '@ionic-native/facebook';
+
 //Servicio de autenticación de credenciales
 import { AuthProvider } from '../../providers/auth/auth';
 //Validador de correo electronico, para que el usuario no escriba caracteres extraños
@@ -21,7 +23,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public formBuilder: FormBuilder, public alertCtrl: AlertController,
-              public loadingCtrl: LoadingController, public authProv:AuthProvider){
+              public loadingCtrl: LoadingController, public authProv:AuthProvider,
+              public fb: Facebook){
 
                 this.loginForm = formBuilder.group({
                   email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
@@ -52,9 +55,11 @@ export class LoginPage {
           this.loading.present();
       }
   }
-  loginUserFB(){
-
+  loginFacebook(): void{
+    this.authProv.loginFacebook();
+    this.navCtrl.setRoot(HomePage);
   }
+
   register(): void {
     this.navCtrl.push(RegisterPage);
   }

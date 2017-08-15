@@ -1,11 +1,21 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Facebook } from '@ionic-native/facebook';
 import firebase from 'firebase';
 
 @Injectable()
 export class AuthProvider {
 
-  constructor() {
+  constructor(public afAuth: AngularFireAuth, public facebook: Facebook) {
   }
+
+  /**
+  *[getUser Función que devuelve el usuario logeado]
+  */
+  getUser(): firebase.User{
+    return this.afAuth.auth.currentUser;
+  }
+
   /**
    * [loginUser Tomamos el email y la contraseña del usuario para logearnos en la aplicación con firebase]
    * @param  {string} email    [User's email address]
@@ -13,8 +23,25 @@ export class AuthProvider {
    */
   loginUser(email: string, password: string): firebase.Promise<any> {
     return firebase.auth().signInWithEmailAndPassword(email, password);
-
   }
+  /**
+  *[loginFacebook Función que usa el plugin de cordova, cordova-plugin-facebook4 para autenticar usuarios a travez de facebook y firebase]
+  *
+  */
+  loginFacebook(): Promise<any> {
+    return this.facebook.login(['email']).then( (response) => {
+      const facebookCredential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
+      this.afAuth.auth.signInWithCredential(facebookCredential).then( (success) => {
+        console.log("Firebase éxito: " + JSON.stringify(success));
+        console.log (JSON.stringify(facebookCredential));
+      }).catch( (error) => {
+        console.log("Firebase error: " + JSON.stringify(error));
+      });
+    }).catch( (error) =>{
+      console.log(error);
+    });
+  }
+
   /**
    * [signupUser]
    * Esta función toma el email y contraseña de un usuario para registrarlo en la aplicación con firebase, una vez hecho esto
