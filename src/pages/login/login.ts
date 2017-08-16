@@ -57,7 +57,6 @@ export class LoginPage {
   }
   loginFacebook(): void{
     this.authProv.loginFacebook();
-    this.navCtrl.setRoot(HomePage);
   }
 
   register(): void {
