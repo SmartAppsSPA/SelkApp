@@ -56,8 +56,21 @@ export class LoginPage {
       }
   }
   loginFacebook(): void{
-    this.authProv.loginFacebook();
-  }
+    this.authProv.loginFacebook().then(loginSucces => {
+      this.loading.dismiss().then( () => {
+        this.navCtrl.setRoot(HomePage);
+      });
+    }, error => {
+      this.loading.dismiss().then( () =>{
+        let alert = this.alertCtrl.create({
+          title: 'Vaya!',
+          subTitle: 'Algo no anda bien... Intente más tarde.',
+          buttons: ["OK"]
+        });
+        alert.present();
+      });
+    });
+  } 
 
   register(): void {
     this.navCtrl.push(RegisterPage);
