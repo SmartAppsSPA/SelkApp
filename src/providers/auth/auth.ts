@@ -31,9 +31,15 @@ export class AuthProvider {
   loginFacebook(): Promise<any> {
     return this.facebook.login(['email']).then( (response) => {
       const facebookCredential = firebase.auth.FacebookAuthProvider.credential(response.authResponse.accessToken);
-      this.afAuth.auth.signInWithCredential(facebookCredential).then( (success) => {
-        console.log("Firebase éxito: " + JSON.stringify(success));
+      this.afAuth.auth.signInWithCredential(facebookCredential).then( (userData) => {
+        console.log("Firebase éxito: " + JSON.stringify(userData));
         console.log (JSON.stringify(facebookCredential));
+        //Tomamos dato de usuario registrado y guardamos en BD de firebase.
+        firebase.database().ref('users').child(userData.uid).set({
+          firstName: userData.displayName,
+          email: userData.email,
+          photo: userData.photoURL
+        });
       }).catch( (error) => {
         console.log("Firebase error: " + JSON.stringify(error));
       });
@@ -56,9 +62,10 @@ export class AuthProvider {
           //    firstName: "anonymous",
            //   id:newUser.uid,
          // });
-        firebase.database().ref('/userProfile').child(newUser.uid).set({
-            firstName: "anonymous",
-             email: email
+        firebase.database().ref('/users').child(newUser.uid).set({
+            firstName: "",
+             email: email,
+             photo: ""
       });
     });
   }
