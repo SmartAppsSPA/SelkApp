@@ -4,7 +4,8 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthProvider } from '../../providers/auth/auth';
 
-import { MainPage } from '../main/main';
+import firebase  from 'firebase';
+
 
 @IonicPage()
 @Component({
@@ -13,26 +14,50 @@ import { MainPage } from '../main/main';
 })
 export class HomePage {
 
-  arrCat = [];
+categories:any;
 
   constructor(private fdb: AngularFireDatabase, public navCtrl: NavController,
               public navParams: NavParams, public authProv: AuthProvider){
 
-                  this.fdb.list("/categories/").subscribe(_data => {
-                    this.arrCat = _data;
+              this.fdb.list("/users/"+this.getUserId()+"/categories").subscribe(_data => {
+                  this.categories = _data;
 
-                    console.log(this.arrCat);
-                  });
+                  //console.log(this.categories);
+                });
                 }
 
 
   ionViewDidLoad() {
+    console.log(firebase.auth().currentUser.uid);
+  }
+
+  getUserId(){
+    return firebase.auth().currentUser.uid;
   }
 
 
-  catClick(){
-    this.navCtrl.push(MainPage);
+  catClick(category:any){
+    console.log("Categoria: "+category.$key);
+
   }
+  saveCategory(){
+    console.log("Funciona funcion saveCategory()");
+    var cats = [];
+
+    this.categories.forEach(function (e,i) {
+      console.log(e);
+      cats[e.$key] = e.$value;
+    });
+
+    console.log(cats);
+
+
+    firebase.database().ref('/users/'+this.getUserId()).set({
+      categories: cats
+    });
+    console.log(this.categories);
+  }
+
 
 
 }

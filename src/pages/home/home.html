@@ -8,5 +8,14 @@
 
 
 <ion-content padding>
-  <button ion-button color="light" block *ngFor="let category of arrCat; let i = index" (click)="catClick()">{{category.es}}</button>
+  <ion-item *ngFor="let category of categories; let i = index"
+            (click)="saveCategory()">
+    <ion-label>
+      {{category.$key}}
+    </ion-label>
+    <ion-toggle [(ngModel)]="category.$value">
+
+    </ion-toggle>
+  </ion-item>
+
 </ion-content>

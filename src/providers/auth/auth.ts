@@ -38,7 +38,13 @@ export class AuthProvider {
         firebase.database().ref('users').child(userData.uid).set({
           firstName: userData.displayName,
           email: userData.email,
-          photo: userData.photoURL
+          photo: userData.photoURL,
+          categories: {
+            fashion: false,
+            food: false,
+            games: false,
+            technology: false
+          }
         });
       }).catch( (error) => {
         console.log("Firebase error: " + JSON.stringify(error));
@@ -65,7 +71,13 @@ export class AuthProvider {
         firebase.database().ref('/users').child(newUser.uid).set({
             firstName: "",
              email: email,
-             photo: ""
+             photo: "",
+             categories: {
+               fashion: false,
+               food: false,
+               games: false,
+               technology: false
+             }
       });
     });
   }
